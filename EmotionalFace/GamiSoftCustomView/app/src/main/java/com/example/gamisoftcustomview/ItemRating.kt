@@ -13,7 +13,7 @@ class ItemRating : ConstraintLayout {
     private lateinit var tvSectionName: TextView
     private lateinit var tvRatingValue: TextView
     private lateinit var ivForwardArrow: ImageView
-    
+
     constructor(context: Context) : super(context) {
         init(context)
     }
