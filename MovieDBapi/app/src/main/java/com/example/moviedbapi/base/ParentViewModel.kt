@@ -1,23 +1,28 @@
 package com.example.moviedbapi.base
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-abstract class ParentViewModel : ViewModel() {
-    private val parentJob = SupervisorJob()
+open class ParentViewModel : ViewModel() {
 
-    private val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + parentJob
 
-    protected val uiScope: CoroutineScope = CoroutineScope(coroutineContext)
+    protected var disposables = CompositeDisposable()
 
-    protected abstract fun handleError(e: Throwable)
 
     override fun onCleared() {
+
+        disposables.clear()
         super.onCleared()
-        parentJob.cancel()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun removeDisposables(){
+        disposables.clear()
     }
 }

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <com.example.gamisoftcustomview.ItemRating
         android:id="@+id/itemRating"
         app:layout_constraintTop_toTopOf="parent"

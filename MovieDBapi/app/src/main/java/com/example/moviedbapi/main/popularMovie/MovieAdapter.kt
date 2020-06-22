@@ -1,6 +1,5 @@
-package com.example.moviedbapi.main.favourite
+package com.example.moviedbapi.main.popularMovie
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import com.example.moviedbapi.data.models.MovieData
 import com.example.moviedbapi.utilities.AppConstants
 
 
-class MovieFavoriteAdapter(private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ParentViewHolder>(){
+class MovieAdapter(private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ParentViewHolder>() {
 
     private val VIEW_TYPE_LOADING = 0
     private val VIEW_TYPE_NORMAL = 1
@@ -53,7 +52,7 @@ class MovieFavoriteAdapter(private val itemClickListener: ItemClickListener) : R
 
     override fun onBindViewHolder(holder: ParentViewHolder, position: Int) {
         if (holder is MovieViewHolder) {
-            val movie = movieList[movieList.size - 1 - position]
+            val movie = movieList[position]
             holder.bind(movie)
             holder.setItemClick(movie)
         }
@@ -87,7 +86,7 @@ class MovieFavoriteAdapter(private val itemClickListener: ItemClickListener) : R
 
     fun addLoading() {
         isLoaderVisible = true
-        movieList.add(MovieData(id = - 1))
+        movieList.add(MovieData(id = -1))
         notifyItemInserted(movieList.size - 1)
     }
 
@@ -104,8 +103,8 @@ class MovieFavoriteAdapter(private val itemClickListener: ItemClickListener) : R
 
         fun bind(movie: MovieData) {
             tvName.text = movie.title
-            movie.releaseDate.let { edition ->
-                tvDate.text = edition
+            movie.releaseDate.let{ date ->
+                tvDate.text = date
             }
             val imageUrl = "${AppConstants.POSTER_BASE_URL}${movie.posterPath}"
 
